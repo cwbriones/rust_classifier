@@ -1,0 +1,5 @@
+[package]
+
+name = "email_classifier"
+version = "0.0.1"
+authors = ["Christian Briones <cwbriones@gmail.com>"]
