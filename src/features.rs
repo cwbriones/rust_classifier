@@ -1,7 +1,11 @@
 use std::io::{BufferedReader, File};
 use std::ascii::AsciiExt;
+use std::rand::{thread_rng, Rng};
 
-pub fn load_all_examples(data_dir: &str) -> Vec<(bool, Vec<String>)> {
+type Example = Vec<String>;
+type LabeledExample = (bool, Example);
+
+pub fn load_all_examples(data_dir: &str) -> Vec<LabeledExample> {
     let data_path = Path::new(data_dir);
     let labels_path = data_path.join("labels.txt");
 
@@ -27,6 +31,9 @@ pub fn load_all_examples(data_dir: &str) -> Vec<(bool, Vec<String>)> {
                 _ => panic!("This is an error")
             }
         } else {
+            let mut rng = thread_rng();
+            rng.shuffle(labeled_features.as_mut_slice());
+
             return labeled_features;
         }
     }
@@ -34,7 +41,7 @@ pub fn load_all_examples(data_dir: &str) -> Vec<(bool, Vec<String>)> {
 
 // Functions to take raw text and extract normalized features
 // Reads tokens from the email file
-fn extract_features(path: &Path) -> Vec<String> {
+fn extract_features(path: &Path) -> Example {
     let mut file = File::open(path).unwrap();
 
     let data = match file.read_to_string() {

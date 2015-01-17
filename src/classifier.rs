@@ -32,7 +32,7 @@ impl NaiveBayesClassifier {
         }
     }
 
-    pub fn train(&mut self, labeled_features: Vec<(bool, Vec<String>)>) {
+    pub fn train(&mut self, labeled_features: &[(bool, Vec<String>)]) {
         for &(label, ref feature_vec) in labeled_features.iter() {
             if label {
                 self.positive_label.document_count += 1;
@@ -52,10 +52,10 @@ impl NaiveBayesClassifier {
         }
     }
 
-    fn classify(&self, feature_vec: Counter) -> bool {
+    pub fn classify(&self, feature_vec: &[String]) -> bool {
         let mut total_weight = 0.0;
 
-        for (feature, _) in feature_vec.iter() {
+        for feature in feature_vec.iter() {
             let p_pos = self.p_feature_given_label(feature.as_slice(), true) as f64;
             let p_neg = self.p_feature_given_label(feature.as_slice(), false) as f64;
 
