@@ -23,13 +23,14 @@ impl Counter {
                 *e.get_mut() += 1;
                 *e.get()
             }
-            Entry::Vacant(mut e) => {
+            Entry::Vacant(e) => {
                 e.insert(1);
                 1
             }
         }
     }
 
+    #[allow(dead_code)]
     pub fn iter(&self) -> Iter<String, u32> {
         self.inner.iter()
     }

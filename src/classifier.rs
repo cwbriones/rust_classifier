@@ -1,5 +1,4 @@
 use std::num::Float;
-use std::collections::HashMap;
 
 use counter::Counter;
 
@@ -69,7 +68,7 @@ impl NaiveBayesClassifier {
     }
 
     fn p_feature_given_label(&self, feature: &str, label: bool) -> f64 {
-        let mut label = match label {
+        let label = match label {
             true  => &self.positive_label,
             false => &self.negative_label
         };

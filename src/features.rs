@@ -9,7 +9,7 @@ pub fn load_all_examples(data_dir: &str) -> Vec<LabeledExample> {
     let data_path = Path::new(data_dir);
     let labels_path = data_path.join("labels.txt");
 
-    let mut file = File::open(&labels_path).unwrap();
+    let file = File::open(&labels_path).unwrap();
     let mut buf_reader = BufferedReader::new(file);
     let mut labeled_features = Vec::new();
 

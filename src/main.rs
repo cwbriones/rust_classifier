@@ -1,5 +1,4 @@
 #![allow(unstable)]
-
 use classifier::NaiveBayesClassifier;
 
 mod classifier;
