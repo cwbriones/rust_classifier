@@ -1,5 +1,6 @@
 use std::collections::hash_map::{HashMap, Entry, Iter};
 
+#[derive(Clone)]
 pub struct Counter {
     inner: HashMap<String, u32>
 }

@@ -15,7 +15,7 @@ fn main() {
     let mut file = File::open(&labels_path).unwrap();
     let mut buf_reader = BufferedReader::new(file);
 
-    let mut classifier = NaiveBayesClassifier::new("spam".to_string(), "not_spam".to_string());
+    let mut classifier = NaiveBayesClassifier::new();
     let mut labeled_features = Vec::new();
 
     loop {
@@ -25,7 +25,13 @@ fn main() {
                 [label, filename] => {
                     let full_path = data_path.join_many(&["emails", filename.trim()]);
                     let features = extract_features(&full_path);
-                    labeled_features.push((label.to_string(), features))
+
+                    let mark = match label {
+                        "spam" => true,
+                        "not_spam" => false,
+                        _ => panic!("Found unexpected label {}", label)
+                    };
+                    labeled_features.push((mark, features))
                 },
                 _ => panic!("This is an error")
             }
